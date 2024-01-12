@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "168778025913",
+    "project_id": "rollebased",
+    "storage_bucket": "rollebased.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168778025913:android:046afca8b03e4634c90468",
+        "android_client_info": {
+          "package_name": "com.example.rollebased"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWVtPNi9RqLVif7K0rczZSU4EPWB7mwso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
