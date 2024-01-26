@@ -3,19 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pandabar/main.view.dart';
 import 'package:pandabar/pandabar.dart';
-import 'package:rollebased/Technician/technician_pending.dart';
-import 'package:rollebased/Technician/technician_completed.dart';
 import 'package:rollebased/chat/chat_home_page.dart';
-
+import 'client_requested.dart';
+import 'client_pending.dart';
+import 'client_completed.dart';
 import '../login.dart';
 
-class TechnicianTabScreen extends StatefulWidget {
-  static const routeName = '/technician_tab_screen';
+class ViewStatus extends StatefulWidget {
+  static const routeName = '/client_view_status';
   @override
-  _TechnicianTabScreenState createState() => _TechnicianTabScreenState();
+  _ViewStatusState createState() => _ViewStatusState();
 }
 
-class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
+class _ViewStatusState extends State<ViewStatus> {
+  final formKey = GlobalKey<FormState>();
   String page = 'Blue';
 
   @override
@@ -23,10 +24,11 @@ class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
 
-    final techId = args['technicianId'] as String;
+    final cId = args['clientId'] as String;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Technician"),
+        title: Text("Status Log"),
         backgroundColor: Colors.orange,
         actions: [
           IconButton(
@@ -39,9 +41,15 @@ class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
           )
         ],
       ),
+      extendBody: true,
       bottomNavigationBar: PandaBar(
         buttonData: [
-          PandaBarButtonData(id: 'Blue', icon: Icons.book, title: 'Pending'),
+          PandaBarButtonData(
+            id: 'Blue',
+            icon: Icons.dashboard,
+            title: 'Requested',
+          ),
+          PandaBarButtonData(id: 'Green', icon: Icons.book, title: 'Pending'),
           PandaBarButtonData(
               id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
           PandaBarButtonData(
@@ -75,10 +83,12 @@ class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
       body: Builder(
         builder: (context) {
           switch (page) {
+            case 'Green':
+              return ClientPending(cId);
             case 'Blue':
-              return TechnicianPending(techId);
+              return ClientRequested(cId);
             case 'Red':
-              return TechnicianCompleted(techId);
+              return ClientCompleted(cId);
             case 'Yellow':
               return ChatHomePage();
             default:

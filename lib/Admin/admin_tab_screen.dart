@@ -1,54 +1,15 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-
-// import 'login.dart';
-
-// class Admin extends StatefulWidget {
-//   const Admin({super.key});
-
-//   @override
-//   State<Admin> createState() => _AdminState();
-// }
-
-// class _AdminState extends State<Admin> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Admin"),
-//         backgroundColor: Colors.blue,
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               logout(context);
-//             },
-//             icon: Icon(
-//               Icons.logout,
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-
-//   Future<void> logout(BuildContext context) async {
-//     CircularProgressIndicator();
-//     await FirebaseAuth.instance.signOut();
-//     Navigator.pushReplacement(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => LoginPage(),
-//       ),
-//     );
-//   }
-// }
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pandabar/main.view.dart';
 import 'package:pandabar/pandabar.dart';
+import 'package:rollebased/Admin/addmin_delete_account/admin_delete_account_homepage.dart';
 import 'package:rollebased/Admin/admin_add_account.dart';
+import 'package:rollebased/Admin/admin_requested.dart';
+import 'package:rollebased/Admin/admin_pending.dart';
+import 'package:rollebased/Admin/admin_completed.dart';
 import '../login.dart';
+import 'package:flutter/services.dart';
 
 class AdminTabScreen extends StatefulWidget {
   static const routeName = '/admin_tab_screen';
@@ -61,10 +22,16 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Make status bar transparent
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text("Admin"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             onPressed: () {
@@ -85,7 +52,7 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
             icon: Icons.dashboard,
             title: 'Requested',
           ),
-          PandaBarButtonData(id: 'Green', icon: Icons.book, title: 'Assigned'),
+          PandaBarButtonData(id: 'Green', icon: Icons.book, title: 'Pending'),
           PandaBarButtonData(
               id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
           PandaBarButtonData(
@@ -120,11 +87,11 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
         builder: (context) {
           switch (page) {
             case 'Green':
-              return Container(color: Colors.green.shade500);
+              return AdminPending();
             case 'Blue':
-              return Container(color: Colors.blue.shade900);
+              return AdminRequested();
             case 'Red':
-              return Container(color: Colors.red.shade900);
+              return AdminCompleted();
             case 'Yellow':
               return Container(color: Colors.yellow.shade700);
             default:
@@ -156,18 +123,27 @@ class NavigationDrawer extends StatelessWidget {
 }
 
 Widget buildHeader(BuildContext context) => Container(
-      color: Colors.blue.shade700,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/image/HU012230.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
+        ),
+      ),
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top,
       ),
       child: Column(children: [
         CircleAvatar(
           radius: 52,
-          backgroundImage: NetworkImage(''),
+          backgroundImage: Image.asset(
+            'assets/image/logo.png',
+            fit: BoxFit.cover,
+          ).image,
         ),
         SizedBox(height: 12),
         Text(
-          'Logo',
+          'EMMS',
           style: TextStyle(fontSize: 28, color: Colors.white),
         ),
       ]),
@@ -179,11 +155,19 @@ Widget buildMenuItems(BuildContext context) => Container(
         runSpacing: 16,
         children: [
           ListTile(
-            leading: const Icon(Icons.account_box),
+            leading: const Icon(Icons.add),
             title: const Text('Add account'),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => AdminAddAccount(),
+            )),
+          ),
+          ListTile(
+            leading: const Icon(Icons.delete_rounded),
+            title: const Text('Delete accounts'),
+            onTap: () =>
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => AdminDeleteAccountHomePage(),
             )),
           ),
         ],

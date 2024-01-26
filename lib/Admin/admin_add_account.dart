@@ -432,6 +432,7 @@ class _AdminAddAccountState extends State<AdminAddAccount> {
         'OfficeBuilding': building,
         'OfficeNumber': officeNumberControllere.text,
         'phoneNumber': phoneNumber,
+        'isAvailabile': true,
       });
     } else {
       FirebaseFirestore.instance.collection("Admins").doc(user!.uid).set({
