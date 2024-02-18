@@ -41,7 +41,7 @@ class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
       ),
       bottomNavigationBar: PandaBar(
         buttonData: [
-          PandaBarButtonData(id: 'Blue', icon: Icons.book, title: 'Pending'),
+          PandaBarButtonData(id: 'Blue', icon: Icons.pending, title: 'Pending'),
           PandaBarButtonData(
               id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
           PandaBarButtonData(
@@ -52,24 +52,23 @@ class _TechnicianTabScreenState extends State<TechnicianTabScreen> {
             page = id;
           });
         },
-        fabIcon: Icon(Icons.notifications),
         onFabButtonPressed: () {
-          showCupertinoDialog(
-              context: context,
-              builder: (context) {
-                return CupertinoAlertDialog(
-                  content: Text('Fab Button Pressed!'),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text('Close'),
-                      isDestructiveAction: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
+          // showCupertinoDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return CupertinoAlertDialog(
+          //         content: Text('Fab Button Pressed!'),
+          //         actions: <Widget>[
+          //           CupertinoDialogAction(
+          //             child: Text('Close'),
+          //             isDestructiveAction: true,
+          //             onPressed: () {
+          //               Navigator.pop(context);
+          //             },
+          //           )
+          //         ],
+          //       );
+          //     });
         },
       ),
       body: Builder(

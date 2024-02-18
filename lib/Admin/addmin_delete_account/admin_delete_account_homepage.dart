@@ -37,7 +37,6 @@ class _AdminDeleteAccountHomePageState
           title: const Text('Accounts List'),
           backgroundColor: Colors.orange,
         ),
-
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -60,79 +59,6 @@ class _AdminDeleteAccountHomePageState
             child: _buildAccountList(_technicians),
           ),
         ]),
-
-        // body: Container(
-        //   child: StreamBuilder(
-        //       stream: _clients.snapshots(),
-        //       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-        //         if (streamSnapshot.hasData) {
-        //           return ListView.builder(
-        //               itemCount: streamSnapshot.data!.docs.length,
-        //               itemBuilder: (context, Index) {
-        //                 final DocumentSnapshot documentSnapshot =
-        //                     streamSnapshot.data!.docs[Index];
-        //                 return Card(
-        //                   color: Color.fromARGB(255, 85, 138, 190),
-        //                   shape: RoundedRectangleBorder(
-        //                     borderRadius: BorderRadius.circular(20),
-        //                   ),
-        //                   margin: const EdgeInsets.all(10),
-        //                   child: ListTile(
-        //                     leading: Column(
-        //                       children: [
-        //                         Text(
-        //                             'Client Full Name: ${documentSnapshot['clientFullName']}',
-        //                             style: TextStyle(
-        //                                 fontWeight: FontWeight.bold,
-        //                                 color: const Color.fromARGB(
-        //                                     255, 107, 8, 8))),
-        //                         Text(
-        //                             'Offic Building: ${documentSnapshot['OfficeBuilding']}',
-        //                             style: TextStyle(
-        //                                 fontWeight: FontWeight.bold,
-        //                                 color: const Color.fromARGB(
-        //                                     255, 107, 8, 8))),
-        //                         Text(
-        //                           'Offic Number: ${documentSnapshot['OfficeNumber']}',
-        //                           style: TextStyle(
-        //                               fontWeight: FontWeight.bold,
-        //                               color:
-        //                                   const Color.fromARGB(255, 107, 8, 8)),
-        //                         ),
-        //                       ],
-        //                     ),
-        //                     trailing: SizedBox(
-        //                       width: 100,
-        //                       child: Row(
-        //                         children: [
-        //                           IconButton(
-        //                             onPressed: () {
-        //                               Future<void> _deleteClinet(
-        //                                   String productID) async {
-        //                                 await _clients.doc(productID).delete();
-        //                                 ScaffoldMessenger.of(context)
-        //                                     .showSnackBar(SnackBar(
-        //                                         content: Text(
-        //                                   'Account successfully deleted!',
-        //                                   style: TextStyle(color: Colors.red),
-        //                                 )));
-        //                               }
-
-        //                               _deleteClinet(documentSnapshot.id);
-        //                             },
-        //                             icon: const Icon(Icons.delete),
-        //                           ),
-        //                         ],
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 );
-        //               });
-        //         }
-
-        //         return Center();
-        //       }),
-        // ),
       ),
     );
   }
@@ -175,7 +101,7 @@ class _AdminDeleteAccountHomePageState
         : 'Technician Full Name: ${documentSnapshot['techFullName']}';
 
     return Card(
-      color: Color.fromARGB(255, 85, 138, 190),
+      color: Color.fromARGB(220, 250, 149, 34),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -183,9 +109,9 @@ class _AdminDeleteAccountHomePageState
       child: ListTile(
         title: Text(
           fullName,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: const Color.fromARGB(255, 107, 8, 8),
+            color: Colors.white,
           ),
         ),
         subtitle: Column(
@@ -193,16 +119,16 @@ class _AdminDeleteAccountHomePageState
           children: [
             Text(
               'Office Building: ${documentSnapshot['OfficeBuilding']}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 107, 8, 8),
+                color: Colors.white,
               ),
             ),
             Text(
               'Office Number: ${documentSnapshot['OfficeNumber']}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 107, 8, 8),
+                color: Colors.white,
               ),
             ),
           ],

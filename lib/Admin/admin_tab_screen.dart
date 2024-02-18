@@ -8,6 +8,7 @@ import 'package:rollebased/Admin/admin_add_account.dart';
 import 'package:rollebased/Admin/admin_requested.dart';
 import 'package:rollebased/Admin/admin_pending.dart';
 import 'package:rollebased/Admin/admin_completed.dart';
+import 'package:rollebased/session_listener.dart';
 import '../login.dart';
 import 'package:flutter/services.dart';
 
@@ -28,76 +29,85 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
         statusBarIconBrightness: Brightness.light,
       ),
     );
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Admin"),
-        backgroundColor: Colors.orange,
-        actions: [
-          IconButton(
-            onPressed: () {
-              logout(context);
-            },
-            icon: Icon(
-              Icons.logout,
+    return SessionTimeOutListener(
+      duration: Duration(seconds: 1200),
+      onTimeOut: () {
+        print('timeout');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Admin"),
+          backgroundColor: Colors.orange,
+          actions: [
+            IconButton(
+              onPressed: () {
+                logout(context);
+              },
+              icon: Icon(
+                Icons.logout,
+              ),
+            )
+          ],
+        ),
+        drawer: const NavigationDrawer(),
+        extendBody: true,
+        bottomNavigationBar: PandaBar(
+          buttonData: [
+            PandaBarButtonData(
+              id: 'Blue',
+              icon: Icons.pending_actions,
+              title: 'Requested',
             ),
-          )
-        ],
-      ),
-      drawer: const NavigationDrawer(),
-      extendBody: true,
-      bottomNavigationBar: PandaBar(
-        buttonData: [
-          PandaBarButtonData(
-            id: 'Blue',
-            icon: Icons.dashboard,
-            title: 'Requested',
-          ),
-          PandaBarButtonData(id: 'Green', icon: Icons.book, title: 'Pending'),
-          PandaBarButtonData(
-              id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
-          PandaBarButtonData(
-              id: 'Yellow', icon: Icons.settings, title: 'Settings'),
-        ],
-        onChange: (id) {
-          setState(() {
-            page = id;
-          });
-        },
-        fabIcon: Icon(Icons.notifications),
-        onFabButtonPressed: () {
-          showCupertinoDialog(
-              context: context,
-              builder: (context) {
-                return CupertinoAlertDialog(
-                  content: Text('Fab Button Pressed!'),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text('Close'),
-                      isDestructiveAction: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
-        },
-      ),
-      body: Builder(
-        builder: (context) {
-          switch (page) {
-            case 'Green':
-              return AdminPending();
-            case 'Blue':
-              return AdminRequested();
-            case 'Red':
-              return AdminCompleted();
-            case 'Yellow':
-              return Container(color: Colors.yellow.shade700);
-            default:
-              return Container();
-          }
-        },
+            PandaBarButtonData(
+                id: 'Green', icon: Icons.pending, title: 'Pending'),
+            PandaBarButtonData(
+                id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
+          ],
+          onChange: (id) {
+            setState(() {
+              page = id;
+            });
+          },
+          fabIcon: null,
+          onFabButtonPressed: () {
+            // showCupertinoDialog(
+            //     context: context,
+            //     builder: (context) {
+            //       return CupertinoAlertDialog(
+            //         content: Text('Fab Button Pressed!'),
+            //         actions: <Widget>[
+            //           CupertinoDialogAction(
+            //             child: Text('Close'),
+            //             isDestructiveAction: true,
+            //             onPressed: () {
+            //               Navigator.pop(context);
+            //             },
+            //           )
+            //         ],
+            //       );
+            //     });
+          },
+        ),
+        body: Builder(
+          builder: (context) {
+            switch (page) {
+              case 'Green':
+                return AdminPending();
+              case 'Blue':
+                return AdminRequested();
+              case 'Red':
+                return AdminCompleted();
+              case 'Yellow':
+                return Container(color: Colors.yellow.shade700);
+              default:
+                return Container();
+            }
+          },
+        ),
       ),
     );
   }
@@ -157,16 +167,14 @@ Widget buildMenuItems(BuildContext context) => Container(
           ListTile(
             leading: const Icon(Icons.add),
             title: const Text('Add account'),
-            onTap: () =>
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => AdminAddAccount(),
             )),
           ),
           ListTile(
             leading: const Icon(Icons.delete_rounded),
             title: const Text('Delete accounts'),
-            onTap: () =>
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => AdminDeleteAccountHomePage(),
             )),
           ),

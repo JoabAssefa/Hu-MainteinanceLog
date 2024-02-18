@@ -85,6 +85,7 @@ class _ClientCompletedState extends State<ClientCompleted> {
                   itemBuilder: (c, index) {
                     // snapshot.data!.docs[index]['fieldName'];
                     return Card(
+                      color: Colors.orange,
                       elevation: 5,
                       child: ListTile(
                         onTap: () => showDetails(
@@ -108,11 +109,11 @@ class _ClientCompletedState extends State<ClientCompleted> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
-                            ),
+                                'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
+                                style: TextStyle(color: Colors.white)),
                             Text(
-                              'Logged on: ${snapshot.data!.docs[index]['loggedOn']}',
-                            ),
+                                'Logged on: ${snapshot.data!.docs[index]['loggedOn']}',
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -154,6 +155,7 @@ class ClientCompletedDetailsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Card(
+          color: Colors.orange,
           margin: const EdgeInsets.all(10),
           elevation: 5,
           child: Container(
@@ -164,7 +166,8 @@ class ClientCompletedDetailsScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text('Requested by:'),
+                    const Text('Requested by:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
@@ -172,7 +175,7 @@ class ClientCompletedDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         padding: const EdgeInsets.all(5),
-                        color: Colors.blue,
+                        color: Colors.black,
                         child: Text(
                           cFName,
                           style: const TextStyle(
@@ -185,85 +188,83 @@ class ClientCompletedDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text('No. Damaged Computers:'),
+                    const Text('No. Damaged Computers:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(numOfDamagedDevices ?? 'Default'),
+                    Text(numOfDamagedDevices ?? 'Default',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Damage Level:'),
+                    const Text('Damage Level:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      DamagedDevces,
-                    ),
+                    Text(DamagedDevces, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Status:'),
+                    const Text('Status:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      status,
-                    ),
+                    Text(status, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Campus:'),
+                    const Text('Campus:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      OfficeNumber,
-                    ),
+                    Text(OfficeNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Location:'),
+                    const Text('Location:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(5),
-                      child: Text(
-                        OfficeBuilding,
-                      ),
+                      child: Text(OfficeBuilding,
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Logged on:'),
+                    const Text('Logged on:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      loggedOn,
-                    ),
+                    Text(loggedOn, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 isApproved
                     ? Row(
                         children: [
-                          const Text('Assigned Technician:'),
+                          const Text('Assigned Technician:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
                           Container(
                             width: 100,
                             padding: const EdgeInsets.all(5),
-                            child: Text(
-                              techFName,
-                            ),
+                            child: Text(techFName,
+                                style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       )
@@ -271,26 +272,26 @@ class ClientCompletedDetailsScreen extends StatelessWidget {
                 isApproved
                     ? Row(
                         children: [
-                          const Text('Approved on:'),
+                          const Text('Approved on:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            approvedOn,
-                          ),
+                          Text(approvedOn,
+                              style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : const SizedBox(),
                 isRepaired
                     ? Row(
                         children: [
-                          const Text('Repaired on:'),
+                          const Text('Repaired on:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            repairedOn,
-                          ),
+                          Text(repairedOn,
+                              style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : const SizedBox(),

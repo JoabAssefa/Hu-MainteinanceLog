@@ -91,6 +91,7 @@ class _TechnicianPendingState extends State<TechnicianPending> {
                   itemBuilder: (c, index) {
                     // snapshot.data!.docs[index]['fieldName'];
                     return Card(
+                      color: Colors.orange,
                       elevation: 5,
                       child: ListTile(
                         onTap: () => showDetails(
@@ -115,11 +116,11 @@ class _TechnicianPendingState extends State<TechnicianPending> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Requested by: ${snapshot.data!.docs[index]['clientFullName']}',
-                            ),
+                                'Requested by: ${snapshot.data!.docs[index]['clientFullName']}',
+                                style: TextStyle(color: Colors.white)),
                             Text(
-                              'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
-                            ),
+                                'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -164,6 +165,7 @@ class TechnicianPendingDetailsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Card(
+          color: Colors.orange,
           margin: const EdgeInsets.all(10),
           elevation: 5,
           child: Container(
@@ -174,7 +176,8 @@ class TechnicianPendingDetailsScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text('Requested by:'),
+                    const Text('Requested by:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
@@ -182,7 +185,7 @@ class TechnicianPendingDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         padding: const EdgeInsets.all(5),
-                        color: Colors.blue,
+                        color: Colors.black,
                         child: Text(
                           cFName,
                           style: const TextStyle(
@@ -195,105 +198,110 @@ class TechnicianPendingDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text('No. Damaged Devices:'),
+                    const Text('No. Damaged Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      numOfDamagedDevices ?? 'Default Value',
-                    ),
+                    Text(numOfDamagedDevices ?? 'Default Value',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Damage Devices:'),
+                    const Text('Damage Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(damagedDevces),
+                    Text(damagedDevces, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Office Number:'),
+                    const Text('Office Number:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      OfficeNumber,
-                    ),
+                    Text(OfficeNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Office Building :'),
+                    const Text('Office Building :',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(5),
-                      child: Text(
-                        OfficeBuilding,
-                      ),
+                      child: Text(OfficeBuilding,
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Requestee Phone Number:'),
+                    const Text('Requestee Phone Number:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(PhoneNumber),
+                    Text(PhoneNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Status:'),
+                    const Text('Status:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(status),
+                    Text(status, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Logged on:'),
+                    const Text('Logged on:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(loggedOn),
+                    Text(loggedOn, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Assigned Technician:'),
+                    const Text('Assigned Technician:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(techFName),
+                    Text(techFName, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Approved on:'),
+                    const Text('Approved on:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(approvedOn),
+                    Text(approvedOn, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 isRepaired
                     ? Row(
                         children: [
-                          const Text('Repaired on:'),
+                          const Text('Repaired on:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            repairedOn,
-                          ),
+                          Text(repairedOn,
+                              style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : const SizedBox(),

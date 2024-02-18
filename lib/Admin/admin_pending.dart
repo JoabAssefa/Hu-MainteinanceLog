@@ -50,68 +50,71 @@ class _AdminPendingState extends State<AdminPending> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(10),
-      height: mediaQuery.size.height - mediaQuery.padding.top,
-      width: double.infinity,
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('faults')
-            .where('status', isEqualTo: 'Pending')
-            .snapshots(),
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            Fluttertoast.showToast(msg: 'Loading');
-          }
-          if (snapshot.hasError) {
-            Fluttertoast.showToast(
-              msg: 'An error occurred!',
-              backgroundColor: Colors.redAccent,
-            );
-          }
-          return !snapshot.hasData
-              ? const Center(
-                  child: Text('No new pending task is found!'),
-                )
-              : ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (c, index) {
-                    // snapshot.data!.docs[index]['fieldName'];
-                    return Card(
-                      elevation: 5,
-                      child: ListTile(
-                        onTap: () => showDetails(
-                          c,
-                          snapshot.data!.docs[index]['clientId'],
-                          snapshot.data!.docs[index]['clientFullName'],
-                          snapshot.data!.docs[index]['numOfDamagedDevice'],
-                          snapshot.data!.docs[index]['DamagedDevces'],
-                          snapshot.data!.docs[index]['OfficeBuilding'],
-                          snapshot.data!.docs[index]['OfficeNumber'],
-                          snapshot.data!.docs[index]['PhoneNumber'],
-                          snapshot.data!.docs[index]['status'],
-                          snapshot.data!.docs[index]['loggedOn'],
-                          snapshot.data!.docs[index]['techId'],
-                          snapshot.data!.docs[index]['techFullName'],
-                          snapshot.data!.docs[index]['approvedOn'],
-                          snapshot.data!.docs[index]['repairedOn'],
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        height: mediaQuery.size.height - mediaQuery.padding.top,
+        width: double.infinity,
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('faults')
+              .where('status', isEqualTo: 'Pending')
+              .snapshots(),
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              Fluttertoast.showToast(msg: 'Loading');
+            }
+            if (snapshot.hasError) {
+              Fluttertoast.showToast(
+                msg: 'An error occurred!',
+                backgroundColor: Colors.redAccent,
+              );
+            }
+            return !snapshot.hasData
+                ? const Center(
+                    child: Text('No new pending task is found!'),
+                  )
+                : ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (c, index) {
+                      // snapshot.data!.docs[index]['fieldName'];
+                      return Card(
+                        color: Colors.orange,
+                        elevation: 5,
+                        child: ListTile(
+                          onTap: () => showDetails(
+                            c,
+                            snapshot.data!.docs[index]['clientId'],
+                            snapshot.data!.docs[index]['clientFullName'],
+                            snapshot.data!.docs[index]['numOfDamagedDevice'],
+                            snapshot.data!.docs[index]['DamagedDevces'],
+                            snapshot.data!.docs[index]['OfficeBuilding'],
+                            snapshot.data!.docs[index]['OfficeNumber'],
+                            snapshot.data!.docs[index]['PhoneNumber'],
+                            snapshot.data!.docs[index]['status'],
+                            snapshot.data!.docs[index]['loggedOn'],
+                            snapshot.data!.docs[index]['techId'],
+                            snapshot.data!.docs[index]['techFullName'],
+                            snapshot.data!.docs[index]['approvedOn'],
+                            snapshot.data!.docs[index]['repairedOn'],
+                          ),
+                          leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Requested by: ${snapshot.data!.docs[index]['clientFullName']}',
+                                  style: TextStyle(color: Colors.white)),
+                              Text(
+                                  'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
+                                  style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
                         ),
-                        leading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Requested by: ${snapshot.data!.docs[index]['clientFullName']}',
-                            ),
-                            Text(
-                              'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-        },
+                      );
+                    });
+          },
+        ),
       ),
     );
   }
@@ -151,6 +154,7 @@ class AdminPendingDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Card(
           margin: const EdgeInsets.all(10),
+          color: Colors.orange,
           elevation: 5,
           child: Container(
             height: 500,
@@ -160,7 +164,8 @@ class AdminPendingDetailsScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text('Requested by:'),
+                    const Text('Requested by:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
@@ -168,7 +173,7 @@ class AdminPendingDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         padding: const EdgeInsets.all(5),
-                        color: Colors.blue,
+                        color: Colors.black,
                         child: Text(
                           cFName,
                           style: const TextStyle(
@@ -181,86 +186,93 @@ class AdminPendingDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text('No. Damaged Devices:'),
+                    const Text('No. Damaged Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(numOfDamagedDevices ?? 'Default Value'),
+                    Text(numOfDamagedDevices ?? 'Default Value',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Damaged Devices:'),
+                    const Text('Damaged Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(damagedDevces),
+                    Text(damagedDevces, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Office Building:'),
+                    const Text('Office Building:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(5),
-                      child: Text(
-                        OfficeBuilding,
-                      ),
+                      child: Text(OfficeBuilding,
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Requestee Phone Number:'),
+                    const Text('Requestee Phone Number:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(PhoneNumber),
+                    Text(PhoneNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Status:'),
+                    const Text('Status:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(status),
+                    Text(status, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Logged on:'),
+                    const Text('Logged on:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(loggedOn),
+                    Text(loggedOn, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Office Number:'),
+                    const Text('Office Number:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(OfficeNumber),
+                    Text(OfficeNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 isApproved
                     ? Row(
                         children: [
-                          const Text('Assigned Technician:'),
+                          const Text('Assigned Technician:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
                           Container(
                             width: 100,
                             padding: const EdgeInsets.all(5),
-                            child: Text(
-                              techFName,
-                            ),
+                            child: Text(techFName,
+                                style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       )
@@ -268,22 +280,26 @@ class AdminPendingDetailsScreen extends StatelessWidget {
                 isApproved
                     ? Row(
                         children: [
-                          const Text('Approved on:'),
+                          const Text('Approved on:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(approvedOn),
+                          Text(approvedOn,
+                              style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : const SizedBox(),
                 isRepaired
                     ? Row(
                         children: [
-                          const Text('Repaired on:'),
+                          const Text('Repaired on:',
+                              style: TextStyle(color: Colors.white)),
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(repairedOn),
+                          Text(repairedOn,
+                              style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : const SizedBox(),

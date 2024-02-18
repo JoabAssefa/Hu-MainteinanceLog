@@ -92,20 +92,35 @@ class _ChatPageState extends State<ChatPage> {
     var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
         ? Alignment.centerRight
         : Alignment.centerLeft;
+    // Determine chat bubble color based on sender
+    var bubbleColor = (data['senderId'] == _firebaseAuth.currentUser!.uid)
+        ? Colors.grey
+        : Colors.orange;
+
+    // Determine if the message is from the sender
+    var isSender = (data['senderId'] == _firebaseAuth.currentUser!.uid);
+
     return Container(
       alignment: alignment,
-      child: Column(
-          crossAxisAlignment:
-              (data['senderId'] == _firebaseAuth.currentUser!.uid)
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
-          children: [
-            Text(data['senderFullName']),
-            const SizedBox(
-              height: 5,
-            ),
-            ChatBubble(message: data['message']),
-          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+            crossAxisAlignment:
+                (data['senderId'] == _firebaseAuth.currentUser!.uid)
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+            children: [
+              Text(data['senderFullName']),
+              const SizedBox(
+                height: 5,
+              ),
+              ChatBubble(
+                message: data['message'],
+                bubbleColor: bubbleColor,
+                isSender: isSender,
+              ),
+            ]),
+      ),
     );
   }
 

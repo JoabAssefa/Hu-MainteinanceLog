@@ -88,11 +88,17 @@ class _ClientAddFaultScreenState extends State<ClientAddFaultScreen> {
             ),
             const SizedBox(height: 30.0),
             ElevatedButton(
-                onPressed: () {
-                  _submitData(context, cId, cOfficeBuilding, cOfficeNumber,
-                      cPhoneNumber, cFullName);
-                },
-                child: const Text('Submit Request'))
+              onPressed: () {
+                _submitData(context, cId, cOfficeBuilding, cOfficeNumber,
+                    cPhoneNumber, cFullName);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+                elevation: 5,
+              ),
+              child: const Text('Submit Request'),
+            )
           ],
         ),
       ),

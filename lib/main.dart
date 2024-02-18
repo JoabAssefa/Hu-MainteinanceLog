@@ -16,6 +16,7 @@ import 'package:rollebased/Admin/admin_requested.dart';
 import 'package:rollebased/Admin/admin_pending.dart';
 import 'package:rollebased/Admin/admin_completed.dart';
 import 'package:rollebased/chat/chat_page.dart';
+import 'package:rollebased/session_listener.dart';
 import 'login.dart';
 import 'package:flutter/services.dart';
 
@@ -45,7 +46,16 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: Colors.blue[900],
       ),
-      home: LoginScreen(),
+      home: SessionTimeOutListener(
+          duration: Duration(seconds: 60),
+          onTimeOut: () {
+            print('timeout');
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => LoginScreen()),
+            // );
+          },
+          child: LoginScreen()),
       routes: {
         TechnicianTabScreen.routeName: (context) => TechnicianTabScreen(),
         TechnicianPendingDetailsScreen.routeName: (context) =>

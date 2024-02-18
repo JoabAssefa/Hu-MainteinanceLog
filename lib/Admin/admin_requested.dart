@@ -98,6 +98,7 @@ class _AdminRequestedState extends State<AdminRequested> {
                   itemBuilder: (c, index) {
                     // snapshot.data!.docs[index]['fieldName'];
                     return Card(
+                      color: Colors.orange,
                       elevation: 5,
                       child: ListTile(
                         onTap: () => showDetails(
@@ -119,10 +120,11 @@ class _AdminRequestedState extends State<AdminRequested> {
                           children: [
                             Text(
                               'Requested by: ${snapshot.data!.docs[index]['clientFullName']}',
+                              style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
-                            ),
+                                'No. of Damaged Devices: ${snapshot.data!.docs[index]['numOfDamagedDevice']}',
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -150,11 +152,8 @@ class _AdminRequestedDetailsScreenState
   List<Widget> getFormWidget(List<String> availableTechnicians) {
     List<Widget> formWidget = [];
 
-    if (availableTechnicians.isNotEmpty) {
-      _selectedTechnician = availableTechnicians[0];
-    } else {
+    if (availableTechnicians.isEmpty) {
       _selectedTechnician = '-- Select Technician --';
-
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -169,25 +168,49 @@ class _AdminRequestedDetailsScreenState
     }
 
     formWidget.add(
-      DropdownButton<String>(
-        borderRadius: BorderRadius.circular(15),
-        hint: const Text('Choose a Technician'),
-        value: _selectedTechnician,
-        items: availableTechnicians.map((String valuex) {
-          return DropdownMenuItem<String>(
-            value: valuex,
-            child: Text(
-              valuex,
-              style: const TextStyle(fontSize: 14),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Shadow color
+              spreadRadius: 2, // Spread radius
+              blurRadius: 5, // Blur radius
+              offset: Offset(0, 3), // Offset of the shadow
             ),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            _selectedTechnician = value.toString();
-          });
-        },
-        isExpanded: true,
+          ],
+        ),
+        child: DropdownButton<String>(
+          dropdownColor: Colors.white,
+          focusColor: Colors.white,
+          hint: const Text(
+            'Choose a Technician',
+            style: TextStyle(color: Colors.black),
+          ),
+          value: _selectedTechnician,
+          items: availableTechnicians.map((String valuex) {
+            return DropdownMenuItem<String>(
+              value: valuex,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  valuex,
+                  style: const TextStyle(fontSize: 14, color: Colors.black),
+                ),
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedTechnician = value.toString();
+            });
+          },
+          isExpanded: true,
+          icon: Icon(Icons.arrow_drop_down,
+              color: Colors.black), // Change dropdown icon color
+          underline: SizedBox.shrink(), // Remove default underline
+        ),
       ),
     );
     formWidget.add(
@@ -319,6 +342,7 @@ class _AdminRequestedDetailsScreenState
       ),
       body: SingleChildScrollView(
         child: Card(
+          color: Colors.orange,
           margin: const EdgeInsets.all(10),
           elevation: 5,
           child: Container(
@@ -329,7 +353,8 @@ class _AdminRequestedDetailsScreenState
               children: [
                 Row(
                   children: [
-                    const Text('Requested by:'),
+                    const Text('Requested by:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
@@ -337,7 +362,7 @@ class _AdminRequestedDetailsScreenState
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         padding: const EdgeInsets.all(5),
-                        color: Colors.blue,
+                        color: Colors.black,
                         child: Text(
                           cFullName,
                           style: const TextStyle(
@@ -350,73 +375,78 @@ class _AdminRequestedDetailsScreenState
                 ),
                 Row(
                   children: [
-                    const Text('No. Damaged Devices:'),
+                    const Text('No. Damaged Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(numOfDamagedDevices ?? 'Default Value'),
+                    Text(numOfDamagedDevices ?? 'Default Value',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Damaged Devices:'),
+                    const Text('Damaged Devices:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(DamagedDevces),
+                    Text(DamagedDevces, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('OfficeBuilding:'),
+                    const Text('OfficeBuilding:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(5),
-                      child: Text(
-                        OfficeBuilding,
-                      ),
+                      child: Text(OfficeBuilding,
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Requestee Phone Number:'),
+                    const Text('Requestee Phone Number:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(PhoneNumber),
+                    Text(PhoneNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Status:'),
+                    const Text('Status:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(status),
+                    Text(status, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('Logged on:'),
+                    const Text('Logged on:',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      loggedOn,
-                    ),
+                    Text(loggedOn, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text('OfficeNumber :'),
+                    const Text('OfficeNumber :',
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(OfficeNumber),
+                    Text(OfficeNumber, style: TextStyle(color: Colors.white)),
                   ],
                 ),
                 ...getFormWidget(availableTechnicians),
@@ -425,29 +455,16 @@ class _AdminRequestedDetailsScreenState
                   children: [
                     TextButton(
                       onPressed: () {
-                        String? trimmed = _selectedTechnician;
-
-                        if (trimmed == '-- Select Technician --') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: Colors.redAccent,
-                              content: Text(
-                                'Select Technician',
-                              ),
-                            ),
-                          );
-                        } else {
-                          approveRequest(
-                            context: context,
-                            faultId: faultId,
-                            techFName: trimmed,
-                          );
-                        }
+                        approveRequest(
+                          context: context,
+                          faultId: faultId,
+                          techFName: _selectedTechnician,
+                        );
                       },
                       child: const Text(
                         'Approve',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: Colors.black,
                         ),
                       ),
                     ),

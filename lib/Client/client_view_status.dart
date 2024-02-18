@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pandabar/main.view.dart';
 import 'package:pandabar/pandabar.dart';
 import 'package:rollebased/chat/chat_home_page.dart';
+import 'package:rollebased/session_listener.dart';
 import 'client_requested.dart';
 import 'client_pending.dart';
 import 'client_completed.dart';
@@ -46,10 +47,11 @@ class _ViewStatusState extends State<ViewStatus> {
         buttonData: [
           PandaBarButtonData(
             id: 'Blue',
-            icon: Icons.dashboard,
+            icon: Icons.pending_actions,
             title: 'Requested',
           ),
-          PandaBarButtonData(id: 'Green', icon: Icons.book, title: 'Pending'),
+          PandaBarButtonData(
+              id: 'Green', icon: Icons.pending, title: 'Pending'),
           PandaBarButtonData(
               id: 'Red', icon: Icons.check_box_outlined, title: 'Completed'),
           PandaBarButtonData(
@@ -60,24 +62,24 @@ class _ViewStatusState extends State<ViewStatus> {
             page = id;
           });
         },
-        fabIcon: Icon(Icons.notifications),
+        fabIcon: null,
         onFabButtonPressed: () {
-          showCupertinoDialog(
-              context: context,
-              builder: (context) {
-                return CupertinoAlertDialog(
-                  content: Text('Fab Button Pressed!'),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text('Close'),
-                      isDestructiveAction: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
+          // showCupertinoDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return CupertinoAlertDialog(
+          //         content: Text('Fab Button Pressed!'),
+          //         actions: <Widget>[
+          //           CupertinoDialogAction(
+          //             child: Text('Close'),
+          //             isDestructiveAction: true,
+          //             onPressed: () {
+          //               Navigator.pop(context);
+          //             },
+          //           )
+          //         ],
+          //       );
+          //     });
         },
       ),
       body: Builder(
